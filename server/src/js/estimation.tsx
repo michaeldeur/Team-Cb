@@ -131,14 +131,21 @@ const Story = (props: { story: UserStory | undefined; list: boolean }) => { // r
     if (props.story !== undefined) {
         story = new UserStory(props.story.toString(), props.story.description, props.story.id!);
         storyQueue.addStory(story)
+        const deleteStory = () => {
+            fetch.post("deleteStory", story)
+        }
         if (props.list) {
             return (
                 <li>
                     {story.toString()}
+                    <button onClick={deleteStory}>Delete</button>
                 </li>
             )
         } else {
-            return story.toString()
+            return (<>
+                {story.toString()}
+                <button onClick={deleteStory}>Delete</button>
+            </>)
         }
     }
 

@@ -34,6 +34,11 @@ app.get("/api/estimations", async (inRequest: Request, inResponse: Response) => 
 
     inResponse.json(stories);
 })
+app.post("/api/deleteStory", async (inRequest: Request, inResponse: Response) => {
+    inResponse.type("json");
+    const story: UserStory = inRequest.body;
+    const numberRemoved: number = await StoryDataAccess.getDataAccess().removeStory(story);
+})
 app.get("/02beb6f43de7e44d0a24.ttf", (inRequest: Request, inResponse: Response) => {
     inResponse.sendFile(path.join(__dirname, "../../../client/dist/02beb6f43de7e44d0a24.ttf"));
 });

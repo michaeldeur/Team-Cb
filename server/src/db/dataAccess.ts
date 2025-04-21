@@ -42,7 +42,7 @@ class StoryDataAccess {
 
 
     public async removeStory(story: UserStory): Promise<number> {
-        return await this.db.removeAsync({ _id: story._id }, {});
+        return await this.db.removeAsync({ id: story.id }, {});
     }
 }
 class CardDataAccess {
