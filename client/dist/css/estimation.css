@@ -31,12 +31,12 @@
     left: 50%;
     top: 50%;
 }
-#root #players #player3 {
+#root #players #player4 {
     position: absolute;
     transform: translateX(calc(75px - 50%)) translateY(calc(-35px - 47.5px));
     left: 50%;
     top: 50%;
-}#root #players #player4 {
+}#root #players #player3 {
     position: absolute;
     transform: translateX(calc(-75px - 50%)) translateY(calc(-35px - 47.5px));
     left: 50%;
@@ -57,7 +57,11 @@
     width: 50px;
     height: 50px;
 }
-    /* Common Estimation Styles */
+.emptyPlayer {
+    margin-top: 20px;
+}
+    
+/* Common Estimation Styles */
 
 li .estButton {
     font-size: 1.25rem;
@@ -138,6 +142,7 @@ li .estButton {
     position: fixed;
     bottom: 0px;
     z-index: 990;
+    background-color: white;
 }
 
 /* Header Styles */

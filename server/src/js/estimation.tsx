@@ -30,19 +30,31 @@ const Estimation = () => { // returns Estimation page
         <CurrentQueue storyQueue={storyQueue} cards={cards} />
         <StQueue storyQueue={storyQueue} />
         <Estimations estimations={estimations} />
-        {/* <div id="bottomLine"></div> */}
+        <div id="bottomLine"></div>
     </>)
 }
 const Player = (props: { name: string, id: string, points: string}) => {
-    return (
-        <div className="player" id={props.id}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-            </svg>
-            {props.name}:<br />
-            {props.points}
-        </div>
-    )
+    if(props.name == "") {
+        return (
+            <div className="player emptyPlayer" id={props.id}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                </svg>
+            </div>
+        )
+    } else {
+        return (
+            <div className="player" id={props.id}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                </svg>
+                {props.name}:<br />
+                {props.points}
+            </div>
+        )
+    }
+    
 }
 const Table = () => {
     let points: number[] = []
@@ -56,7 +68,14 @@ const Table = () => {
     if (numPoints > 0) {
         average = totalPoints / numPoints
     }
-    let players: string[][] = [["Player 1", ""], ["Player 2",""], ["Player 3",""], ["Player 4",""], ["Player 5",""], ["Player 6",""]]
+    let UID = localStorage.getItem("UID");
+    let players: string[][];
+    if(UID != null){
+        players = [[UID, ""], ["",""], ["",""], ["",""], ["",""], ["",""]]
+    } else {
+        players = [["", ""], ["",""], ["",""], ["",""], ["",""], ["",""]]
+
+    }
     return (
         <>
             <h4 id="avg">{average}</h4>
