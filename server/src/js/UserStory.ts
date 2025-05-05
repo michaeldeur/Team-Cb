@@ -1,14 +1,27 @@
 class UserStory {
-    id?: number;
+    id?: string;
+    storyNum?: string;
+
     name: string;
     description: string;
     storyValues?: number;
     _id?: string;
-    constructor(name = "", description = "", id?: number, storyValues: undefined | number = undefined) {
+    constructor(name = "", description = "", id?: string, storyValues: undefined | number = undefined, storyNum: undefined | string = undefined) {
+
         this.id = id;
         this.name = name;
         this.description = description;
         this.storyValues = storyValues;
+    if (!storyNum) {
+            this.storyNum = id;
+        }
+    }
+    public setID(id: string) {
+        if (!this.storyNum) {
+            this.storyNum = id;
+        }
+
+        this.id = id;
     }
     public setStoryValues(value: number): void {
         this.storyValues = value;

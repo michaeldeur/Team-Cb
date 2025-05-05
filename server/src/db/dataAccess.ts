@@ -25,17 +25,32 @@ class StoryDataAccess {
     }
 
 
-    public async getStory(ID: string): Promise<UserStory> {
-        return await this.db.findOneAsync({ _id: ID });
+    public async getStory(ID: number): Promise<UserStory> {
+        return await this.db.findOneAsync({ id: ID });
     }
     public async getStories(): Promise<UserStory[]> {
         return await this.db.findAsync({});
     }
 
+    public updateID(prevID: number, ID: number)  {
+        let stories = this.db.getAllData().sort((a, b) => parseInt(a.id!) - parseInt(b.id!));
+        if (stories.at(ID)) {
+            stories.forEach((story, i) => {
+                if (prevID < ID && story.id > prevID && story.id <= ID) {
+                    story.id = (story.id-1).toString();
+                } else if (prevID > ID && story.id < prevID && story.id >= ID) {
+                    story.id = (parseInt(story.id)+1).toString();
+                }
+            })
+            stories.at(prevID)!.id = ID.toString();
+        }
+        return stories.at(ID) as UserStory;
+    }
 
     public async saveStory(story: UserStory): Promise<UserStory> {
         return await this.db
             .updateAsync({ _id: story._id }, story).then(() => {
+
                 return story;
             });
     }
